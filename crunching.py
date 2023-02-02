@@ -3,13 +3,14 @@
 # Note: 1. I change file name of user_email_hash.1m.tsv to user_email_hash_1m.tsv
 #       2. I add cloumn header on plain_32m.tsv file because it hasn't had any common connection between other files.
 #       3. I try to write minimum processing script because my laptop aren't coprating with me.
-#       4. ignore warnings because data is not purify 
+#       4. for less memmory use, i deleted the all files after getting output so that it don't take much processing power 
+#       5. ignore warnings because data is not purify 
 
 
 # pandas lib
 
 import pandas as pd
-
+import os 
 
 # reading data
 
@@ -29,6 +30,18 @@ output_dataFrame_part_2 = pd.merge(output_dataFrame_part_1, tsv3, on='email', ho
 # Writing output data in output.tsv file
 
 output_dataFrame_part_2.to_csv("./output.tsv", sep='\t', header=True, index=False)
+
+
+# memory calculation 
+
+
+# delete useless files
+if os.path.exists("./user_email_hash_1m.tsv" and "./ip_1m.tsv" and "./plain_32m.tsv"):
+  os.remove("./user_email_hash_1m.tsv")
+  os.remove("./ip_1m.tsv")
+  os.remove("./plain_32m.tsv")
+else:
+  print("Memory already sufficient")
 
 
 #############################################################################################################################
